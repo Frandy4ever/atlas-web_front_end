@@ -1,15 +1,21 @@
 // Working with mixins
-$style: (
-   $body-margin: 10px,
-   $div-margin: 15px
-);
+$body-margin: 10px;
+$div-margin: 15px;
 
-@mixin set-margin($element, $property) {
-   #{$element} {
-      margin-left: map-get($styles, $property);
-      margin-right: map-get($styles, $property);
-   }
+@mixin body-margin {
+   margin-right: $body-margin;
+   margin-left: $body-margin;
 }
-   
-@include set-margin('body', $body-margin);
-@include set-margin('div', $div-margin);
+
+@mixin div-margin {
+   margin-right: $div-margin;
+   margin-left: $div-margin;
+}
+
+body {
+   @include body-marg;
+}
+
+div {
+   @include div-margin;
+}
