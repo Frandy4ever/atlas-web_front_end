@@ -5,7 +5,7 @@ $red-text: #ff0000;
 body {
     color: $text-color;
 
-    .red:nth-child(1) {
+    > .red {
         color: $red-text;
     }
 }
