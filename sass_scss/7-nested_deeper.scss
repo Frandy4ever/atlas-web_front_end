@@ -1,15 +1,12 @@
 // Set fonts sizes
-$style: (
-   $body-margin: 10px,
-   $div-margin: 15px
-);
+body {
+    font-size: 14px;
+    h1 {
+        font-size: 16px;
 
-@mixin set-margin($element, $property) {
-   #{$element} {
-      margin-left: map-get($styles, $property);
-      margin-right: map-get($styles, $property);
-   }
+        &.smaller {
+            font-size: 12px;
+        }
+    }
+
 }
-   
-@include set-margin('body', $body-margin);
-@include set-margin('div', $div-margin);
