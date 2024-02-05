@@ -9,12 +9,10 @@ $red-color: #ff0000;
 
 .success {
     color: $green-color;
+    @extend .info;
 }
 
 .warning {
     color: $red-color;
-}
-
-.success, .warning {
     @extend .info;
 }
