@@ -8,11 +8,13 @@ $red-color: #ff0000;
 }
 
 .success {
-    @extend .info;
     color: $green-color;
 }
 
 .warning {
-    @extend .info;
     color: $red-color;
+}
+
+.success, .warning {
+    @extend .info;
 }
