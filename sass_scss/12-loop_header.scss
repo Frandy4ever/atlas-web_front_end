@@ -1,12 +1,7 @@
 // Sass loop header
 
-%heading {
-    font-size: inherit; 
-}
-
 @for $i from 1 through 5 {
     h#{$i} {
-        @extend %heading;
         font-size: $i * 1px; 
     }
 }
