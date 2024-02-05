@@ -1,0 +1,18 @@
+// Extend sass file
+$font-size: 12px;
+$green-color: #00ff00;
+$red-color: #ff0000;
+
+.info {
+    font-size: $font-size;
+}
+
+.success {
+    @extend .info;
+    color: $green-color;
+}
+
+.warning {
+    @extend .info;
+    color: $red-color;
+}
