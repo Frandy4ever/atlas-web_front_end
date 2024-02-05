@@ -1,6 +1,6 @@
 // Create class for each name in a list
 
-@import "11-loop_photos";
+@import "11-photos";
 
 @each $name in $list-names {
   .photo-#{$name} {
