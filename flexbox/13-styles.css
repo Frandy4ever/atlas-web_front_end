@@ -593,12 +593,12 @@
 
     .post-meta-list [class^="post-meta-"] {
       margin-bottom: 1rem;
-      padding: 1rem;
+      padding-bottom: 1rem;
       border-bottom: 0.2rem solid var(--color-light-grey);
     }
 
-    .post-meta-list .post-meta {
-      border: none;
+    .post-meta-list [class^="post-meta"]:last-child {
+      border: 0;
       margin-bottom: 3rem;
     }
 
@@ -607,6 +607,9 @@
     .tag-list {
       padding: 0;
       list-style: none;
+    }
+
+    .tag-list li {
       display: inline;
     }
 
