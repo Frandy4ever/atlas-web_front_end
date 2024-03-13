@@ -1,1 +1,1 @@
-![Advanced JQuery](images/Js-jQuery-Advanced.jpg)
+![Advanced JQuery](images/advanced_jquery.jpeg)
