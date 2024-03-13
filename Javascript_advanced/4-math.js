@@ -1,4 +1,4 @@
-const divideBy(firstNumber) {
+const divideBy = (firstNumber) => {
   return function(secondNumber) {
     return secondNumber / firstNumber;
   }
