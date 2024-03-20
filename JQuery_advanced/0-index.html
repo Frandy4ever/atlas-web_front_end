@@ -4,15 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task 0</title>
+  <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 </head>
 <body>
-  <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
   <script type="application/javascript">
-    if (window.jQuery) {
-      console.log("jQuery has been loaded correctly");
-    } else {
-      console.error("jQuery has not been loaded correctly");
-    }
+    $(() => {
+      if (window.jQuery) {
+        console.log("jQuery has been loaded correctly");
+      } else {
+        console.log("jQuery has not been loaded correctly");
+      }
+    });
   </script>
 </body>
 </html>

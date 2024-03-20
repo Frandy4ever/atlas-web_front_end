@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 12</title>
+    <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .loading {
+            opacity: 0.2;
+        }
+
+        #pagination {
+            list-style-type: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        #pagination li {
+            cursor: pointer;
+            margin-left: 10px;
+            font-weight: normal;
+            display: inline;
+        }
+
+        #pagination li.current {
+            font-weight: bold;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<script type="application/javascript">
+    $(document).ready(() => {
+        listPosts();
+        buildForm();
+    });
+
+    function buildForm() {
+        $("body").append(`
+            <form id="postForm">
+                <div>
+                    <label for="author">Author:</label>
+                    <input type="text" id="author" name="author">
+                </div>
+                <div>
+                    <label for="title">Title:</label>
+                    <textarea id="title" name="title"></textarea>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
+        `);
+
+        $("#postForm").submit(function(event) {
+            event.preventDefault();
+            sendForm();
+        });
+    }
+
+    function sendForm() {
+        console.log("About to send the query to the API");
+        const author = $("#author").val();
+        const title = $("#title").val();
+
+        $.post('http://localhost:3000/posts', { title: title, author: author })
+            .done(function(data) {
+                console.log("POST request successful:", data);
+                addPostRow(data.id, author, title);
+            })
+            .fail(function() {
+                console.error("Error sending POST request");
+                alert("Error sending the POST query");
+            });
+    }
+
+    function addPostRow(id, author, title) {
+        const rowId = `row-${id}`;
+        const deleteButton = `<span class="delete" onclick="deletePost(${id})">(delete)</span>`;
+        $("body").append(`
+            <p id="${rowId}">
+                ${deleteButton}
+                <span>Post created with id ${id}, title: ${title}, author: ${author}</span>
+            </p>
+        `);
+    }
+
+    function deletePost(id) {
+        console.log("Deleting post with id:", id);
+        $.ajax({
+            url: `http://localhost:3000/posts/${id}`,
+            type: 'DELETE',
+            success: function() {
+                console.log("Post deleted successfully");
+                $(`#row-${id}`).remove();
+            },
+            error: function() {
+                console.error("Error deleting post");
+                alert("Post was not deleted");
+            }
+        });
+    }
+
+    function listPosts() {
+        $.get('http://localhost:3000/posts')
+            .done(function(data) {
+                console.log("GET request successful:", data);
+                data.forEach(post => {
+                    addPostRow(post.id, post.author, post.title);
+                });
+            })
+            .fail(function() {
+                console.error("Error sending GET request");
+                alert("Error fetching posts");
+            });
+    }
+</script>
+</body>
+</html>

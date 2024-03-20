@@ -4,24 +4,27 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Task 4</title>
+  <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
 </head>
 <body>
-  <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
   <script type="application/javascript">
-    function createFamilyTree() {
-      $("body").append("<table><thead><tr><th>Firstname</th><th>Lastname</th></tr></thead><tbody></tbody></table>");
+    $(document).ready(() => {
 
-      $("tbody").append("<tr><td>Guillaume</td><td>Salva</td></tr>");
-      $("tbody").append("<tr><td>Paulette</td><td>Salva</td></tr>");
-      $("tbody").append("<tr><td>Antoine</td><td>Salva</td></tr>");
-    }
+      function createFamilyTree() {
+        $("body").append("<table><thead><tr><th>Firstname</th><th>Lastname</th></tr></thead><tbody></tbody></table>");
 
-    function replaceFamilyTree() {
-      $("tbody").html("<tr><td>Gerard</td><td>Bonissa</td></tr>");
-    }
+        $("tbody").append("<tr><td>Guillaume</td><td>Salva</td></tr>");
+        $("tbody").append("<tr><td>Paulette</td><td>Salva</td></tr>");
+        $("tbody").append("<tr><td>Antoine</td><td>Salva</td></tr>");
+      }
 
-    createFamilyTree();
-    replaceFamilyTree();
+      function replaceFamilyTree() {
+        $("tbody").html("<tr><td>Gerard</td><td>Bonissa</td></tr>");
+      }
+
+      createFamilyTree();
+      replaceFamilyTree();
+    });
   </script>
 </body>
 </html>

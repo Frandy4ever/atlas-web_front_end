@@ -1,66 +1,149 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task 7</title>
-</head>
-<body>
-  <script type="application/javascript" src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<html
+	lang="en"
+	dir="ltr">
+	<head>
+		<meta
+			charset="UTF-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0" />
+		<title>
+			Task 7
+		</title>
+		<script type="application/javascript"
+			src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	</head>
+	<body>
 
-  <script type="application/javascript">
-    function createSearchForm() {
-      // Create the search form
-      $("body").append(`
-        <form id="searchForm">
-          <input type="text" name="searchText" placeholder="Enter search term">
-          <input type="submit" value="Search">
-        </form>
-        <ul id="searchResults"></ul>
-      `);
+		<script
+			type="application/javascript">
+			$(
+				document
+			).ready(
+				() => {
+					function createSearchForm() {
+						// Create the search form
+						$(
+							"body"
+						)
+							.append(`
+          <form id="searchForm">
+            <input type="text" name="searchText" placeholder="Enter search term">
+            <input type="submit" value="Search">
+          </form>
+          <ul id="searchResults"></ul>
+        `);
 
-      $("#searchForm").submit(function(event) {
-        event.preventDefault();
-        const searchText = $("input[name='searchText']").val();
-        queryWikipedia(searchText);
-      });
-    }
+						$(
+							"#searchForm"
+						).submit(
+							function (
+								event
+							) {
+								event.preventDefault();
+								const searchText =
+									$(
+										"input[name='searchText']"
+									).val();
+								queryWikipedia(
+									searchText
+								);
+							}
+						);
+					}
 
-    function addNewArticle(id, title, snippet) {
-      const listItem = $("<li>");
+					function addNewArticle(
+						id,
+						title,
+						snippet
+					) {
+						const listItem =
+							$(
+								"<li>"
+							);
 
-      const titleParagraph = $("<p>").append(`<span>${id} - </span><b>${title}</b>`);
+						const paragraphTitle =
+							$(
+								"<p>"
+							).append(
+								`<span>${id} - </span><b>${title}</b>`
+							);
 
-      const snippetParagraph = $("<p>").html(snippet);
+						const snippetParagraph =
+							$(
+								"<p>"
+							).html(
+								snippet
+							);
 
-      listItem.append(titleParagraph).append(snippetParagraph);
+						listItem
+							.append(
+								paragraphTitle
+							)
+							.append(
+								snippetParagraph
+							);
 
-      $("#searchResults").append(listItem);
-    }
+						$(
+							"#searchResults"
+						).append(
+							listItem
+						);
+					}
 
-    function queryWikipedia(search) {
-      const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=${search}&origin=*`;
+					function queryWikipedia(
+						search
+					) {
+						const url = `https://en.wikipedia.org/w/api.php?action=query&list=search&format=json&srsearch=${search}&origin=*`;
 
-      // Make AJAX request to Wikipedia API
-      $.ajax({
-        url: url,
-        method: "GET",
-        dataType: "json",
-        success: function(response) {
-          response.query.search.forEach(function(result) {
-            addNewArticle(result.pageid, result.title, result.snippet);
-          });
-        },
-        error: function(xhr, status, error) {
-          console.error("Error querying Wikipedia API:", error);
-        }
-      });
-    }
+						// Make AJAX request to Wikipedia API
+						$.ajax({
+							url: url,
+							method:
+								"GET",
+							dataType:
+								"json",
+							success:
+								function (
+									response
+								) {
+									response.query.search.forEach(
+										function (
+											result
+										) {
+											addNewArticle(
+												result.pageid,
+												result.title,
+												result.snippet
+											);
+										}
+									);
+								},
+							error:
+								function (
+									xhr,
+									status,
+									error
+								) {
+									console.error(
+										"Error querying Wikipedia API:",
+										error
+									);
+								},
+						});
+					}
 
-    $(document).ready(function() {
-      createSearchForm();
-    });
-  </script>
-</body>
+					$(
+						document
+					).ready(
+						function () {
+							createSearchForm();
+						}
+					);
+				}
+			);
+		</script>
+	</body>
 </html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 11</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<script type="application/javascript">
+    function listPosts() {
+        $.get("http://localhost:3000/posts", function(data, status) {
+            if (status === "success") {
+                data.forEach(function(post) {
+                    addPostRow(post);
+                });
+            } else {
+                alert("Server Error");
+            }
+        });
+    }
+
+    $(document).ready(() => {
+        listPosts();
+        buildForm();
+    });
+
+    function buildForm() {
+        $("body").append(`
+            <form id="postForm">
+                <div>
+                    <label for="author">Author</label>
+                    <input type="text" id="author">
+                </div>
+                <div>
+                    <label for="title">Title</label>
+                    <textarea id="title"></textarea>
+                </div>
+                <input type="submit">
+            </form>
+        `);
+
+        $("#postForm").submit(function(event) {
+            event.preventDefault();
+            sendForm();
+        });
+
+        $("label").click(function() {
+            $(this).siblings("input, textarea").focus();
+        });
+    }
+
+    function sendForm() {
+        $("form").after("<p>About to send the query to the API</p>");
+        
+        const data = {
+            title: $("#title").val(),
+            author: $("#author").val()
+        };
+
+        $.post("http://localhost:3000/posts", data, function(response, status) {
+            if (status === "success") {
+                addPostRow(response);
+            } else {
+                alert("Error sending the POST query");
+            }
+        });
+    }
+
+    function addPostRow(data) {
+        const postInfo = `Post created with id ${data.id}, title: ${data.title}, author: ${data.author}`;
+        $("body").append(`<p>${postInfo}</p>`);
+    }
+</script>
+
+</body>
+</html>

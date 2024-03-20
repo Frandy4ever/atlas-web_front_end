@@ -1,0 +1,1 @@
+![Storage Models: Cookies, Local Storage, Session Storage](images/cookies_storages.png)
