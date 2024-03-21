@@ -1,57 +1,23 @@
-document.addEventListener("DOMContentLoaded", function() {
-  const setCookiesBtn = document.getElementById('setCookiesBtn');
-  const showCookiesBtn = document.getElementById('showCookiesBtn');
-
-  setCookiesBtn.addEventListener('click', setCookies);
-  showCookiesBtn.addEventListener('click', showCookies);
-});
-
 function setCookies() {
-  const firstnameInput = document.getElementById('firstname');
-  const emailInput = document.getElementById('email');
+  var firstname = document.getElementById("firstname").value;
+  var email = document.getElementById("email").value;
+  document.cookie = "Firstname=" + encodeURIComponent(firstname);
+  document.cookie = "Email=" + encodeURIComponent(email);
 
-  // Get values from input fields
-  const firstnameValue = firstnameInput.value;
-  const emailValue = emailInput.value;
-
-  // Set expiration date to 10 days from now
-  const expirationDate = new Date();
-  expirationDate.setDate(expirationDate.getDate() + 10);
-
-  // Set cookies with expiration date and specific path
-  document.cookie = `firstname=${firstnameValue}; expires=${expirationDate.toUTCString()}; path=/`;
-  document.cookie = `email=${emailValue}; expires=${expirationDate.toUTCString()}; path=/`;
-
-  alert('Cookies set successfully!');
+  alert('Cookies set successfully!')
 }
 
 function showCookies() {
-  const cookieInfo = document.getElementById('cookieInfo');
-  cookieInfo.innerHTML = '';
-
-  const cookies = document.cookie.split(';');
-
-  const paragraph = document.createElement('p');
-  paragraph.textContent = 'Cookies: ';
-  
-  cookies.forEach(cookie => {
-      const [name, value] = cookie.trim().split('=');
-      paragraph.textContent += `${name}: ${value} `;
+  var cookiesDiv = document.getElementById("cookies");
+  var cookiesText = "Cookies: ";
+  var cookies = document.cookie.split("; ");
+  cookies.forEach(function(cookie) {
+      var parts = cookie.split("=");
+      var name = decodeURIComponent(parts[0]);
+      var value = decodeURIComponent(parts[1]);
+      cookiesText += name + "=" + value + "; ";
   });
-
-  cookieInfo.appendChild(paragraph);
-
-  // Read cookies
-  function getCookie(name) {
-    const cookieName = name + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const cookieArray = decodedCookie.split(';');
-    for (let i = 0; i < cookieArray.length; i++) {
-        let cookie = cookieArray[i].trim();
-        if (cookie.indexOf(cookieName) === 0) {
-            return cookie.substring(cookieName.length, cookie.length);
-        }
-    }
-    return "";
-  }
+  var p = document.createElement("p");
+  p.innerHTML = cookiesText;
+  cookiesDiv.appendChild(p);
 }
