@@ -2,9 +2,13 @@ function setCookies() {
   const firstName = document.getElementById('firstname').value;
   const email = document.getElementById('email').value;
 
-  // Set cookies
-  document.cookie = `firstname=${firstName}`;
-  document.cookie = `email=${email}`;
+  // Set expiration date 10 days into the future
+  const expirationDate = new Date();
+  expirationDate.setDate(expirationDate.getDate() + 10);
+
+  // Set cookies with expiration date
+  document.cookie = `firstname=${firstName}; expires=${expirationDate.toUTCString()}`;
+  document.cookie = `email=${email}; expires=${expirationDate.toUTCString()}`;
 }
 
 function showCookies() {

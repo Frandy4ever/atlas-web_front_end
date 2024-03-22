@@ -1,38 +1,34 @@
-const setCookies = () => {
-  const firstname = document.getElementById("firstname").value;
-  const email = document.getElementById("email").value;
+function setCookies() {
+  const firstName = document.getElementById('firstname').value;
+  const email = document.getElementById('email').value;
 
-  // Set expiration date 10 days from now
+  // Set expiration date 10 days into the future
   const expirationDate = new Date();
   expirationDate.setDate(expirationDate.getDate() + 10);
 
-  // Set cookies with expiration date and path
-  document.cookie = `Firstname=${encodeURIComponent(firstname)}; expires=${expirationDate.toUTCString()}; path=/`;
-  document.cookie = `Email=${encodeURIComponent(email)}; expires=${expirationDate.toUTCString()}; path=/`;
-
-  alert('Cookies set successfully!')
+  // Set cookies with expiration date
+  document.cookie = `firstname=${firstName}; expires=${expirationDate.toUTCString()}`;
+  document.cookie = `email=${email}; expires=${expirationDate.toUTCString()}`;
 }
 
-const showCookies = () => {
-  const cookiesDiv = document.getElementById("cookies");
-  const email = getCookie("Email");
-  const firstname = getCookie("Firstname");
-  const cookiesText = `Email: ${email} - Firstname: ${firstname}`;
-  const p = document.createElement("p");
-  p.textContent = cookiesText;
-  cookiesDiv.appendChild(p);
-}
-
-const getCookie = (name) => {
-  const cookies = document.cookie.split("; ");
-  for (const cookie of cookies) {
-      const [cookieName, cookieValue] = cookie.split("=");
-      if (cookieName === name) {
-          return decodeURIComponent(cookieValue);
-      }
+function getCookie(name) {
+  const cookies = document.cookie.split('; ').find(cookie => cookie.startsWith(name + '='));
+  if (cookies) {
+      return cookies.split('=')[1];
   }
-  return "";
+  return '';
 }
 
-document.getElementById("logInButton").addEventListener("click", setCookies);
-document.getElementById("showCookiesButton").addEventListener("click", showCookies);
+function showCookies() {
+  const firstName = getCookie('firstname');
+  const email = getCookie('email');
+  const cookiesParagraph = document.createElement('p');
+
+  // Display Email and Firstname
+  cookiesParagraph.textContent = `Email: ${email} - Firstname: ${firstName}`;
+  document.body.appendChild(cookiesParagraph);
+}
+
+// Event listeners
+document.getElementById('loginBtn').addEventListener('click', setCookies);
+document.getElementById('showCookiesBtn').addEventListener('click', showCookies);
